@@ -9,15 +9,9 @@ import db_connector/db_postgres
 #Import the tables and json modules for handling json type columns
 import std/[tables, json, locks, asyncdispatch]
 
-#Include the type definitions for the db pool
-include "./types/db_query_types.nim"
-include "./types/db_pool_types.nim"
-
-#Now include the async query module, this handles creating 1 or more threads to run queries in the background
-include db_async_query
 
 #Define a new constructor for the DB type
-proc newDB(creds: ConnCreds, workers: int = 8, reqQueueSize: int = 8192, respQueueSize: int = 8192): DB =
+proc newDB*(creds: ConnCreds, workers: int = 8, reqQueueSize: int = 8192, respQueueSize: int = 8192): DB =
     var db_inst = new(DB)
 
     #Initilize the tables
